@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String            @id @default(uuid())
+  name             String
+  email            String            @unique
+  password         String
+  role             String // 'admin' or 'customer'
+  contactNo        String?
+  address          String?
+  profileImg       String?
+  reviewAndRatings ReviewAndRating[]
+  orders           Order[]
+
+  @@map("users")
+}
+
+model Category {
+  id    String @id @default(uuid())
+  title String
+  books Book[]
+
+  @@map("categories")
+}
+
+model Book {
+  id              String @id @default(uuid())
+  title           String
+  author          String
+  price           Float
+  genre           String
+  publicationDate String
+  categoryId      String // Assuming categoryId is a UUID
+
+  // Define a relationship to the Category model
+  category         Category          @relation(fields: [categoryId], references: [id])
+  reviewAndRatings ReviewAndRating[]
+
+  @@map("books")
+}
+
+model ReviewAndRating {
+  id     String @id @default(uuid())
+  review String
+  rating Int // Assume ratings are integers from 1 to 5
+  userId String // UUID representing the user who submitted the review
+  bookId String // UUID representing the book being reviewed
+
+  // Define a relationship to the User model
+  user User @relation(fields: [userId], references: [id])
+
+  // Define a relationship to the Book model
+  book Book @relation(fields: [bookId], references: [id])
+
+  @@map("review_and_ratings")
+}
+
+model Order {
+  id           String   @id @default(uuid())
+  userId       String // UUID representing the user who placed the order
+  orderedBooks Json
+  status       String   @default("pending")
+  createdAt    DateTime @default(now())
+
+  // Define a relationship to the User model
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("orders")
+}
