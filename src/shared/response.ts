@@ -6,8 +6,9 @@ interface IResponse {
   message?: string;
   meta?: {
     page: number;
-    limit: number;
+    size: number;
     total: number;
+    totalPage: number;
   };
   data?: unknown;
 }
@@ -20,8 +21,9 @@ const sendResponse = <T>(
     message?: string;
     meta?: {
       page: number;
-      limit: number;
+      size: number;
       total: number;
+      totalPage: number;
     };
     data?: T;
   }

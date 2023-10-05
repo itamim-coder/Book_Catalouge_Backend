@@ -1,13 +1,12 @@
-export interface IGenericResponse {
-  success: boolean;
-  statusCode: number;
-  message: string;
+export type IGenericResponse<T>= {
+
   meta?: {
     page: number;
-    limit: number;
+    size: number;
     total: number;
+    totalPage: number;
   };
-  data?: any;
+  data?: T;
 }
 
 export interface IGenericErrorResponse {

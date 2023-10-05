@@ -39,7 +39,7 @@ const loginUser = async (data: ILoginUser): Promise<ILoginUserResponse> => {
       const accessToken = sign(
         { userId, userEmail, role },
         config.jwt.secret as Secret,
-        { expiresIn: '1h' }
+        { expiresIn: '3h' }
       );
   
       const refreshToken = sign(
