@@ -55,8 +55,8 @@ const getOrders: RequestHandler = async (req, res, next) => {
 
 const getSingleCustomerOrder: RequestHandler = async (req, res, next) => {
   try {
-    const token = req.headers.authorization;
     const { id } = req.params;
+    const token = req.headers.authorization;
     if (!token) {
       return res.status(401).json({
         success: false,
