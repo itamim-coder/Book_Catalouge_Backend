@@ -1,3 +1,4 @@
+import { OrderRoutes } from './../modules/order/order.route';
 import { UserRoutes } from './../modules/users/users.route';
 import express from 'express';
 import { AuthRoutes } from '../modules/auth/auth.route';
@@ -22,6 +23,10 @@ const moduleRoutes = [
   {
     path: '/books',
     route: BookRoutes
+  },
+  {
+    path: '/orders',
+    route: OrderRoutes
   }
 ];
 

@@ -105,7 +105,7 @@ const getBooksByCategory = async (
   options: IPaginationOptions
 ): Promise<IGenericResponse<Book[]>> => {
   const { size, page, skip } = paginationHelpers.calculatePagination(options);
-  console.log(categoryId);
+
   const whereConditions: Prisma.BookWhereInput = {
     categoryId: categoryId // Filter by categoryId
   };
