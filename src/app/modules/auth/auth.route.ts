@@ -9,7 +9,7 @@ router.post(
   UserController.createUser
 );
 router.post(
-  '/login',
+  '/signin',
   AuthController.loginUser
 );
 // router.post(
