@@ -1,11 +1,11 @@
-import { RequestHandler } from 'express';
+import { Request, RequestHandler, Response } from 'express';
 import { AuthService } from './auth.service';
 import config from '../../../config';
 import sendResponse from '../../../shared/response';
 import { ILoginUserResponse, IRefreshTokenResponse } from './auth.interface';
 import catchAsync from '../../../shared/catchAsync';
 
-const loginUser: RequestHandler = async (req, res, next) => {
+const loginUser = catchAsync(async (req: Request, res: Response) => {
   try {
     const { ...loginData } = req.body;
     console.log(loginData);
@@ -27,9 +27,9 @@ const loginUser: RequestHandler = async (req, res, next) => {
       data: others
     });
   } catch (err) {
-    next(err);
+    // next(err);
   }
-};
+});
 // const refreshToken = catchAsync(async (req: Request, res: Response) => {
 //   const { refreshToken } = req.cookies;
 

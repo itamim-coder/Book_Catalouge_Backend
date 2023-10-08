@@ -1,8 +1,9 @@
-import { RequestHandler } from 'express';
+import { Request, RequestHandler, Response } from 'express';
 import { ProfileService } from './profile.service';
 import sendResponse from '../../../shared/response';
 import httpStatus from 'http-status';
-const getProfile: RequestHandler = async (req, res, next) => {
+import catchAsync from '../../../shared/catchAsync';
+const getProfile = catchAsync(async (req: Request, res: Response) => {
   try {
     const token = req.headers.authorization;
     if (!token) {
@@ -19,10 +20,8 @@ const getProfile: RequestHandler = async (req, res, next) => {
       message: 'Profile Retrieved successfully !',
       data: result
     });
-  } catch (err) {
-    next(err);
-  }
-};
+  } catch (err) {}
+});
 
 export const ProfileController = {
   getProfile

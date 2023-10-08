@@ -1,11 +1,12 @@
-import { RequestHandler } from 'express';
+import { Request, RequestHandler, Response } from 'express';
 
 import sendResponse from '../../../shared/response';
 import { Order } from '@prisma/client';
 import httpStatus from 'http-status';
 import { OrderService } from './order.service';
+import catchAsync from '../../../shared/catchAsync';
 
-const createOrder: RequestHandler = async (req, res, next) => {
+const createOrder = catchAsync(async (req: Request, res: Response) => {
   try {
     console.log(req.headers.authorization);
     const token = req.headers.authorization;
@@ -26,12 +27,10 @@ const createOrder: RequestHandler = async (req, res, next) => {
       message: 'Orders created successfully !',
       data: result
     });
-  } catch (err) {
-    next(err);
-  }
-};
+  } catch (err) {}
+});
 
-const getOrders: RequestHandler = async (req, res, next) => {
+const getOrders = catchAsync(async (req: Request, res: Response) => {
   try {
     const token = req.headers.authorization;
     if (!token) {
@@ -48,12 +47,10 @@ const getOrders: RequestHandler = async (req, res, next) => {
       message: 'Orders Retrieved successfully !',
       data: result
     });
-  } catch (err) {
-    next(err);
-  }
-};
+  } catch (err) {}
+});
 
-const getSingleCustomerOrder: RequestHandler = async (req, res, next) => {
+const getSingleCustomerOrder = catchAsync(async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const token = req.headers.authorization;
@@ -71,10 +68,8 @@ const getSingleCustomerOrder: RequestHandler = async (req, res, next) => {
       message: 'Customer Order Retrieved successfully !',
       data: result
     });
-  } catch (err) {
-    next(err);
-  }
-};
+  } catch (err) {}
+});
 
 // const updateOrder: RequestHandler = async (req, res, next) => {
 //   const { id } = req.params;
