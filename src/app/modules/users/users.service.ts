@@ -27,8 +27,13 @@ const createdUser = async (data: User) => {
 const getUsers = async () => {
   const result = await prisma.user.findMany({
     select: {
+      id: true,
+      name: true,
       email: true,
-      name: true
+      role: true,
+      contactNo: true,
+      address: true,
+      profileImg: true
     }
   });
 
